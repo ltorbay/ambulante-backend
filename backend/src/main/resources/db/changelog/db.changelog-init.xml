@@ -4,4 +4,17 @@
 		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 		xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
                       http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+	<changeSet author="ltorbay" id="202003151705">
+		<createTable tableName="user">
+			<column autoIncrement="true" name="id" type="INTEGER">
+				<constraints primaryKey="true" primaryKeyName="user_pk"/>
+			</column>
+			<column name="first_name" type="VARCHAR(255)">
+				<constraints nullable="false"/>
+			</column>
+			<column name="last_name" type="VARCHAR(255)">
+				<constraints nullable="false"/>
+			</column>
+		</createTable>
+	</changeSet>
 </databaseChangeLog> 
