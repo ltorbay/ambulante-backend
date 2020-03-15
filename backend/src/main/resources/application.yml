@@ -1,0 +1,8 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/ambulante
+    password: ambulante
+    username: ambulante
+  liquibase:
+    change-log: classpath:db/changelog/db.changelog-master.xml
+  

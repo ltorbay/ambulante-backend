@@ -1,0 +1,5 @@
+FROM postgres:12
+ENV POSTGRES_USER=ambulante
+ENV POSTGRES_PASSWORD=ambulante
+ENV POSTGRES_DB=ambulante
+EXPOSE 5432
