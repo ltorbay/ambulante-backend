@@ -16,11 +16,8 @@ import javax.persistence.Table;
 @NoArgsConstructor
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 @Entity
-@Table(name = "user", schema = "public")
-public class UserEntity {
-	@Id
-	@GeneratedValue
-	private Integer id;
+@Table(name = "user")
+public class UserEntity extends AbstractEntity {
 
 	private String firstName;
 
