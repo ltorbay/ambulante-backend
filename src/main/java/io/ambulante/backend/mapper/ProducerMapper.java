@@ -7,5 +7,6 @@ import org.mapstruct.Mapper;
 @Mapper
 public interface ProducerMapper {
     Producer map(final ProducerEntity producerEntity);
+
     ProducerEntity map(final Producer producer);
 }

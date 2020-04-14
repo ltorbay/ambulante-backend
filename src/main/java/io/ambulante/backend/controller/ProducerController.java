@@ -17,7 +17,7 @@ public class ProducerController {
     private final ProducerMapper mapper;
     
     @GetMapping
-    protected Page<Producer> list(final @PageableDefault Pageable pageable) {
+    public Page<Producer> list(final @PageableDefault Pageable pageable) {
         return repository.findAll(pageable).map(mapper::map);
     }
 }
