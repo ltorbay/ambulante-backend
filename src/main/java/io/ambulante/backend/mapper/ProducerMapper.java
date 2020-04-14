@@ -4,7 +4,7 @@ import io.ambulante.backend.model.dto.Producer;
 import io.ambulante.backend.model.entity.ProducerEntity;
 import org.mapstruct.Mapper;
 
-@Mapper
+@Mapper(config = BaseMapper.class)
 public interface ProducerMapper {
     Producer map(final ProducerEntity producerEntity);
 
