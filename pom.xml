@@ -28,7 +28,7 @@
 
         <!-- plugins-->
         <dockerfile.maven.plugin.version>1.4.13</dockerfile.maven.plugin.version>
-        <maven-release-plugin.version>2.5.3</maven-release-plugin.version>
+        <maven-release-plugin.version>2.3.2</maven-release-plugin.version>
     </properties>
 
     <dependencies>
