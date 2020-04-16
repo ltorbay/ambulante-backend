@@ -8,7 +8,8 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - name: Checkout current branch
+        uses: actions/checkout@v2
         with:
           ref: ${{ github.ref }}
       - name: Set up JDK 1.11
@@ -21,8 +22,6 @@ jobs:
           git config --global committer.name "GitHub"
           git config --global author.email "${GITHUB_ACTOR}@users.noreply.github.com"
           git config --global author.name "${GITHUB_ACTOR}"
-      - name: Checkout master branch
-        run: git checkout master
       - name: Prepare release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
