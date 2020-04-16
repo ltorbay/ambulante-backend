@@ -105,6 +105,14 @@
                             <goal>push</goal>
                         </goals>
                         <phase>deploy</phase>
+                    </execution>
+                    <execution>
+                        <id>tag-latest</id>
+                        <goals>
+                            <goal>build</goal>
+                            <goal>push</goal>
+                        </goals>
+                        <phase>deploy</phase>
                         <configuration>
                             <tag>latest</tag>
                         </configuration>
