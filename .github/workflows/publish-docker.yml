@@ -1,9 +1,7 @@
 name: Release workflow
 on:
   push:
-    branches: test-publish
-#    branches: master
-
+    branches: master
 
 jobs:
   build:
