@@ -114,7 +114,7 @@
                     <username>${project.groupId}</username>
                     <!--suppress UnresolvedMavenProperty -->
                     <password>${env.GITHUB_TOKEN}</password>
-                    <repository>docker.pkg.github.com/ltorbay/ambulante-backend</repository>
+                    <repository>docker.pkg.github.com/ltorbay/ambulante-backend/ambulante-backend</repository>
                     <tag>${project.version}</tag>
                     <buildArgs>
                         <buildVersion>${project.version}</buildVersion>
