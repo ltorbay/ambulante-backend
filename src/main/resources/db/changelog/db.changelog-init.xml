@@ -1,20 +1,114 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <databaseChangeLog
-		xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
-		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-		xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
                       http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
-	<changeSet author="ltorbay" id="202003151705">
-		<createTable tableName="user">
-			<column autoIncrement="true" name="id" type="INTEGER">
-				<constraints primaryKey="true" primaryKeyName="user_pk"/>
-			</column>
-			<column name="first_name" type="VARCHAR(255)">
-				<constraints nullable="false"/>
-			</column>
-			<column name="last_name" type="VARCHAR(255)">
-				<constraints nullable="false"/>
-			</column>
-		</createTable>
-	</changeSet>
+    <changeSet id="202003151705" author="ltorbay">
+        <createTable tableName="user">
+            <column autoIncrement="true" name="id" type="INTEGER">
+                <constraints primaryKey="true" primaryKeyName="user_pk"/>
+            </column>
+            <column name="first_name" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="last_name" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet id="202004142019" author="ltorbay">
+        <comment>Create image reference table</comment>
+        <createTable tableName="image_reference">
+            <column autoIncrement="true" name="id" type="INTEGER">
+                <constraints primaryKey="true" primaryKeyName="image_reference_pk"/>
+            </column>
+            <column name="reference" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="display_label" type="VARCHAR(255)"/>
+        </createTable>
+        <createIndex tableName="image_reference" indexName="image_reference_reference">
+            <column name="reference"/>
+        </createIndex>
+    </changeSet>
+    <changeSet id="202004142043" author="ltorbay">
+        <comment>Create producer table</comment>
+        <createTable tableName="producer">
+            <column autoIncrement="true" name="id" type="INTEGER">
+                <constraints primaryKey="true" primaryKeyName="producer_pk"/>
+            </column>
+            <column name="name" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="geolocation" type="VARCHAR(255)"/>
+            <column name="user_id" type="UUID"/>
+        </createTable>
+        <createIndex tableName="producer" indexName="producer_userId">
+            <column name="user_id"/>
+        </createIndex>
+        <createIndex tableName="producer" indexName="producer_name">
+            <column name="name"/>
+        </createIndex>
+    </changeSet>
+    <changeSet id="202004142035" author="ltorbay">
+        <comment>Create presentation item table</comment>
+        <createTable tableName="presentation_item">
+            <column autoIncrement="true" name="id" type="INTEGER">
+                <constraints primaryKey="true" primaryKeyName="presentation_item_pk"/>
+            </column>
+            <column name="description" type="VARCHAR(255)"/>
+            <column name="location" type="VARCHAR(255)"/>
+            <column name="producer" type="INTEGER"/>
+        </createTable>
+        <addForeignKeyConstraint baseTableName="presentation_item" baseColumnNames="producer"
+                                 referencedTableName="producer" referencedColumnNames="id"
+                                 constraintName="presentation_item_producer"/>
+    </changeSet>
+    <changeSet id="202004142051" author="ltorbay">
+        <comment>Create product table</comment>
+        <createTable tableName="product">
+            <column autoIncrement="true" name="id" type="INTEGER">
+                <constraints primaryKey="true" primaryKeyName="product_pk"/>
+            </column>
+            <column name="name" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="default_image" type="INTEGER"/>
+            <column name="default_unit" type="VARCHAR(30)"/>
+        </createTable>
+        <addForeignKeyConstraint baseTableName="product" baseColumnNames="default_image"
+                                 referencedTableName="image_reference" referencedColumnNames="id"
+                                 constraintName="product_image_reference"/>
+        <createIndex tableName="product" indexName="product_name">
+            <column name="name"/>
+        </createIndex>
+    </changeSet>
+    <changeSet id="202004142023" author="ltorbay">
+        <comment>Create article table</comment>
+        <createTable tableName="article">
+            <column autoIncrement="true" name="id" type="INTEGER">
+                <constraints primaryKey="true" primaryKeyName="article_pk"/>
+            </column>
+            <column name="quantity" type="INTEGER"/>
+            <column name="unit" type="VARCHAR(30)"/>
+            <column name="price_per_unit" type="NUMERIC"/>
+            <column name="product" type="INTEGER">
+                <constraints nullable="false"/>
+            </column>
+            <column name="image" type="INTEGER"/>
+            <column name="producer" type="INTEGER">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <addForeignKeyConstraint baseTableName="article" baseColumnNames="product"
+                                 referencedTableName="product" referencedColumnNames="id"
+                                 constraintName="article_product"/>
+        <addForeignKeyConstraint baseTableName="article" baseColumnNames="image"
+                                 referencedTableName="image_reference" referencedColumnNames="id"
+                                 constraintName="article_image"/>
+        <addForeignKeyConstraint baseTableName="article" baseColumnNames="producer"
+                                 referencedTableName="producer" referencedColumnNames="id"
+                                 constraintName="article_producer"/>
+    </changeSet>
 </databaseChangeLog> 

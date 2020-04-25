@@ -1,7 +1,8 @@
 package io.ambulante.backend.controller;
 
-import io.ambulante.backend.model.dto.User;
-import io.ambulante.backend.repository.UserRepository;
+import io.ambulante.backend.mapper.ProducerMapper;
+import io.ambulante.backend.model.dto.Producer;
+import io.ambulante.backend.repository.ProducerRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -11,13 +12,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/v1/users")
+@RequestMapping("/v1/producers")
 @RequiredArgsConstructor
-public class UserController {
-    private final UserRepository userRepository;
+public class ProducerController {
+    private final ProducerRepository repository;
+    private final ProducerMapper mapper;
 
     @GetMapping
-    public Page<User> findAll(@PageableDefault Pageable pageable) {
-        return userRepository.findAllProjectedBy(pageable);
+    public Page<Producer> list(final @PageableDefault Pageable pageable) {
+        return repository.findAll(pageable).map(mapper::map);
     }
 }
