@@ -1,3 +1,4 @@
+## Spring
 spring:
   datasource:
     url: jdbc:postgresql://localhost:5432/ambulante
@@ -5,4 +6,19 @@ spring:
     username: ambulante
   liquibase:
     change-log: classpath:db/changelog/db.changelog-master.xml
-  
+
+## Keycloak
+keycloak:
+  auth-server-url: http://5.39.80.142/ambulante/keycloak/auth
+  realm: ambulante
+  resource: ambulante-backend
+  public-client: true
+  bearer-only: true
+  cors: false
+  ssl-required: none
+keycloak-admin-client:
+  api:
+    server: http://5.39.80.142/ambulante/keycloak/auth
+    client-secret: ${KEYCLOAK_API_CLIENT_SECRET}
+    client-id: keycloak-api
+    grant-type: client_credentials
