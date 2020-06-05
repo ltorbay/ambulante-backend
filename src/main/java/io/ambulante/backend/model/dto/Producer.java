@@ -1,7 +1,6 @@
 package io.ambulante.backend.model.dto;
 
 import lombok.Data;
-import org.springframework.data.geo.Point;
 
 import java.util.List;
 
@@ -11,5 +10,5 @@ public class Producer {
     private List<Article> articles;
     private List<PresentationItem> presentationList;
 
-    private Point coordinates;
+    private Coordinates coordinates;
 }
