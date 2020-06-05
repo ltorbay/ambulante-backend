@@ -2,6 +2,7 @@ package io.ambulante.backend.controller;
 
 import io.ambulante.backend.mapper.CoordinatesMapper;
 import io.ambulante.backend.mapper.ProducerMapper;
+import io.ambulante.backend.model.criteria.ProducerSearchCriteria;
 import io.ambulante.backend.model.dto.Coordinates;
 import io.ambulante.backend.model.dto.Producer;
 import io.ambulante.backend.model.exception.NotFoundException;
@@ -9,7 +10,6 @@ import io.ambulante.backend.repository.ProducerRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.geo.Point;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/v1/producers")
@@ -43,10 +44,13 @@ public class ProducerController {
         return this.coordinatesMapper.map(producer.getCoordinates());
     }
 
-    @GetMapping("/{producerId}/coordinates")
-    public Point getCoordinates(final @PathVariable("producerId") Integer producerId,
-                                final @RequestBody(required = false) Coordinates coordinates) {
-        return new Point(1, 2);
+    @GetMapping("/search")
+    public Page<Producer> search(final @RequestBody ProducerSearchCriteria criteria,
+                                 final @PageableDefault Pageable pageable) {
+        return this.producerRepository.findProducer(this.coordinatesMapper.map(criteria.getCenter()),
+                                                    criteria.getRange(),
+                                                    String.format("%%%s%%", Optional.ofNullable(criteria.getQuery()).orElse("")),
+                                                    pageable).map(this.producerMapper::map);
     }
 
 }
