@@ -9,4 +9,6 @@ public class Producer {
     private String name;
     private List<Article> articles;
     private List<PresentationItem> presentationList;
+
+    private Coordinates coordinates;
 }

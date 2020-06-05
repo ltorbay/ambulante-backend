@@ -2,6 +2,7 @@ package io.ambulante.backend.model.entity;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import org.locationtech.jts.geom.Point;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -18,7 +19,7 @@ import java.util.UUID;
 public class ProducerEntity extends AbstractEntity {
     private UUID userId;
     private String name;
-    private String geolocation;
+    private Point coordinates;
 
     @JoinColumn(name = "producer", referencedColumnName = "id", nullable = false)
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
