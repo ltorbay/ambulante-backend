@@ -11,6 +11,7 @@ public interface ProducerRepository extends JpaRepository<ProducerEntity, Intege
     @Query(nativeQuery = true,
             value = "select p.* from producer p " +
                     "where ST_DWITHIN(coordinates, ST_SetSRID(:center, 4326), :range, true) " +
-                    "and p.name ilike :query")
+                    "and p.name ilike :query " +
+                    "order by ST_Distance(coordinates, :center)")
     Page<ProducerEntity> findProducer(final Point center, long range, String query, Pageable pageable);
 }
