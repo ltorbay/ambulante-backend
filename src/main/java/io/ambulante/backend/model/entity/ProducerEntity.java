@@ -28,5 +28,4 @@ public class ProducerEntity extends AbstractEntity {
     @JoinColumn(name = "producer", referencedColumnName = "id", nullable = false)
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     private List<PresentationItemEntity> presentationList;
-
 }

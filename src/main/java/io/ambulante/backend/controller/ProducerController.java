@@ -5,6 +5,7 @@ import io.ambulante.backend.mapper.ProducerMapper;
 import io.ambulante.backend.model.criteria.ProducerSearchCriteria;
 import io.ambulante.backend.model.dto.Coordinates;
 import io.ambulante.backend.model.dto.Producer;
+import io.ambulante.backend.model.dto.ProducerSummary;
 import io.ambulante.backend.model.exception.NotFoundException;
 import io.ambulante.backend.repository.ProducerRepository;
 import lombok.RequiredArgsConstructor;
@@ -31,8 +32,16 @@ public class ProducerController {
     private final CoordinatesMapper coordinatesMapper;
 
     @GetMapping
-    public Page<Producer> list(final @PageableDefault Pageable pageable) {
-        return this.producerRepository.findAll(pageable).map(this.producerMapper::map);
+    public Page<ProducerSummary> list(final @PageableDefault Pageable pageable) {
+        return this.producerRepository.findAll(pageable).map(this.producerMapper::toSummary);
+    }
+
+    @GetMapping("/{producerId}")
+    public Producer get(final @PathVariable("producerId") Integer producerId) {
+        return this.producerRepository
+                .findById(producerId)
+                .map(this.producerMapper::map)
+                .orElseThrow(NotFoundException::new);
     }
 
     @PutMapping("/{producerId}/coordinates")
@@ -45,12 +54,12 @@ public class ProducerController {
     }
 
     @GetMapping("/search")
-    public Page<Producer> search(final @RequestBody ProducerSearchCriteria criteria,
-                                 final @PageableDefault Pageable pageable) {
+    public Page<ProducerSummary> search(final @RequestBody ProducerSearchCriteria criteria,
+                                        final @PageableDefault Pageable pageable) {
         return this.producerRepository.findProducer(this.coordinatesMapper.map(criteria.getCenter()),
                                                     criteria.getRange(),
                                                     String.format("%%%s%%", Optional.ofNullable(criteria.getQuery()).orElse("")),
-                                                    pageable).map(this.producerMapper::map);
+                                                    pageable).map(this.producerMapper::toSummary);
     }
 
 }
