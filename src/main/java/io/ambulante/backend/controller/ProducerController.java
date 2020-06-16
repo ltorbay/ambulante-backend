@@ -14,6 +14,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -54,9 +55,12 @@ public class ProducerController {
     }
 
     @GetMapping("/search")
-    public Page<ProducerSummary> search(final @RequestBody ProducerSearchCriteria criteria,
+    public Page<ProducerSummary> search(final @ModelAttribute ProducerSearchCriteria criteria,
                                         final @PageableDefault Pageable pageable) {
-        return this.producerRepository.findProducer(this.coordinatesMapper.map(criteria.getCenter()),
+        return this.producerRepository.findProducer(this.coordinatesMapper.map(Coordinates.builder()
+                                                                                          .x(criteria.getLatitude())
+                                                                                          .y(criteria.getLongitude())
+                                                                                          .build()),
                                                     criteria.getRange(),
                                                     String.format("%%%s%%", Optional.ofNullable(criteria.getQuery()).orElse("")),
                                                     pageable).map(this.producerMapper::toSummary);
