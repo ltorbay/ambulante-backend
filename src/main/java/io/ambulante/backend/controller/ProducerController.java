@@ -62,7 +62,7 @@ public class ProducerController {
                                                                                           .y(criteria.getLongitude())
                                                                                           .build()),
                                                     criteria.getRange(),
-                                                    String.format("%%%s%%", Optional.ofNullable(criteria.getQuery()).orElse("")),
+                                                    String.format("%%%s%%", Optional.ofNullable(criteria.getQ()).orElse("")),
                                                     pageable).map(this.producerMapper::toSummary);
     }
 

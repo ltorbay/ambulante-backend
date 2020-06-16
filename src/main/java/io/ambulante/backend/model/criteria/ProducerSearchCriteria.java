@@ -1,6 +1,5 @@
 package io.ambulante.backend.model.criteria;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
 import javax.validation.constraints.NotNull;
@@ -16,6 +15,5 @@ public class ProducerSearchCriteria {
     // Range in meters
     private Long range = 10000L;
 
-    @JsonProperty("q")
-    private String query;
+    private String q;
 }
