@@ -37,7 +37,7 @@ public class LogInterceptor implements HandlerInterceptor {
     }
 
     private static void logRequest(HttpServletRequest request) {
-        log.info("Request {} {}{} - IP {} - User {}",
+        log.debug("Request {} {}{} - IP {} - User {}",
                  request.getMethod(),
                  request.getRequestURI(),
                  extractUriSuffix(request),
