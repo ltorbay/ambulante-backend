@@ -119,4 +119,31 @@
             <column name="coordinates" type="geometry(Point, 4326)"/>
         </addColumn>
     </changeSet>
+    <changeSet id="202009171536" author="ltorbay">
+        <comment>Add audit columns</comment>
+        <addColumn tableName="producer">
+            <column name="created" type="timestamp"/>
+            <column name="updated" type="timestamp"/>
+        </addColumn>
+        <addColumn tableName="article">
+            <column name="created" type="timestamp"/>
+            <column name="updated" type="timestamp"/>
+        </addColumn>
+        <addColumn tableName="image_reference">
+            <column name="created" type="timestamp"/>
+            <column name="updated" type="timestamp"/>
+        </addColumn>
+        <addColumn tableName="presentation_item">
+            <column name="created" type="timestamp"/>
+            <column name="updated" type="timestamp"/>
+        </addColumn>
+        <addColumn tableName="product">
+            <column name="created" type="timestamp"/>
+            <column name="updated" type="timestamp"/>
+        </addColumn>
+        <addColumn tableName="user">
+            <column name="created" type="timestamp"/>
+            <column name="updated" type="timestamp"/>
+        </addColumn>
+    </changeSet>
 </databaseChangeLog> 
