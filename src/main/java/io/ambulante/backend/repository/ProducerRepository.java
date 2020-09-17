@@ -14,4 +14,6 @@ public interface ProducerRepository extends JpaRepository<ProducerEntity, Intege
                     "and p.name ilike :query " +
                     "order by ST_Distance(coordinates, :center)")
     Page<ProducerEntity> findProducer(final Point center, long range, String query, Pageable pageable);
+    
+    Page<ProducerEntity> findByNameContainingIgnoreCaseOrderByName(String name, Pageable pageable);
 }

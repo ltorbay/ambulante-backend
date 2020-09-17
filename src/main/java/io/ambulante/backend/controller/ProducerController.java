@@ -6,9 +6,12 @@ import io.ambulante.backend.model.criteria.ProducerSearchCriteria;
 import io.ambulante.backend.model.dto.Coordinates;
 import io.ambulante.backend.model.dto.Producer;
 import io.ambulante.backend.model.dto.ProducerSummary;
+import io.ambulante.backend.model.dto.Product;
+import io.ambulante.backend.model.dto.Suggestion;
 import io.ambulante.backend.model.exception.NotFoundException;
 import io.ambulante.backend.repository.ProducerRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
@@ -19,6 +22,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
@@ -64,6 +68,15 @@ public class ProducerController {
                                                     criteria.getRange(),
                                                     String.format("%%%s%%", Optional.ofNullable(criteria.getQ()).orElse("")),
                                                     pageable).map(this.producerMapper::toSummary);
+    }
+
+    @GetMapping("/suggest")
+    @Cacheable(value = "producerSuggestion", key = "{#query, #pageable.pageSize, #pageable.pageNumber}")
+    public Page<Suggestion<Producer>> suggestArticles(@RequestParam("q") String query,
+                                                     @PageableDefault Pageable pageable) {
+        return producerRepository.findByNameContainingIgnoreCaseOrderByName(query, pageable)
+                                .map(producerMapper::map)
+                                .map(p -> Suggestion.of(p, Producer::getName));
     }
 
 }

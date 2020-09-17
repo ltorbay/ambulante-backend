@@ -7,4 +7,7 @@ spring:
     change-log: classpath:db/changelog/db.changelog-master.xml
   jpa:
     database-platform: org.hibernate.spatial.dialect.postgis.PostgisDialect
+  cache:
+    cache-names: articleSuggestion
+    caffeine.spec: maximumSize=1000,expireAfterWrite=60s
   

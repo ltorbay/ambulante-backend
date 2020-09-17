@@ -1,7 +1,9 @@
 package io.ambulante.backend.mapper;
 
-import org.mapstruct.MapperConfig;
+import io.ambulante.backend.model.entity.AbstractEntity;
 
-@MapperConfig(componentModel = "spring")
-public interface BaseMapper {
+public interface BaseMapper<DTO, ENT extends AbstractEntity> {
+    DTO map(final ENT producerEntity);
+
+    ENT map(final DTO producer);
 }
