@@ -1,4 +1,4 @@
-FROM postgres:12
+FROM kartoza/postgis:12.1
 ENV POSTGRES_USER=ambulante
 ENV POSTGRES_PASSWORD=ambulante
 ENV POSTGRES_DB=ambulante

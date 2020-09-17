@@ -111,4 +111,12 @@
                                  referencedTableName="producer" referencedColumnNames="id"
                                  constraintName="article_producer"/>
     </changeSet>
+    <changeSet id="202009171453" author="ltorbay">
+        <comment>Add coordinates column to producer and drop old geolocation</comment>
+        <dropColumn tableName="producer" columnName="geolocation"/>
+        <sql>CREATE EXTENSION postgis;</sql>
+        <addColumn tableName="producer">
+            <column name="coordinates" type="geometry(Point, 4326)"/>
+        </addColumn>
+    </changeSet>
 </databaseChangeLog> 
