@@ -6,7 +6,6 @@ import io.ambulante.backend.model.criteria.ProducerSearchCriteria;
 import io.ambulante.backend.model.dto.Coordinates;
 import io.ambulante.backend.model.dto.Producer;
 import io.ambulante.backend.model.dto.ProducerSummary;
-import io.ambulante.backend.model.dto.Product;
 import io.ambulante.backend.model.dto.Suggestion;
 import io.ambulante.backend.model.exception.NotFoundException;
 import io.ambulante.backend.repository.ProducerRepository;
@@ -72,11 +71,10 @@ public class ProducerController {
 
     @GetMapping("/suggest")
     @Cacheable(value = "producerSuggestion", key = "{#query, #pageable.pageSize, #pageable.pageNumber}")
-    public Page<Suggestion<Producer>> suggestArticles(@RequestParam("q") String query,
-                                                     @PageableDefault Pageable pageable) {
+    public Page<Suggestion<Producer>> suggestProducers(@RequestParam("q") String query,
+                                                      @PageableDefault Pageable pageable) {
         return producerRepository.findByNameContainingIgnoreCaseOrderByName(query, pageable)
-                                .map(producerMapper::map)
-                                .map(p -> Suggestion.of(p, Producer::getName));
+                                 .map(producerMapper::map)
+                                 .map(p -> Suggestion.of(p, Producer::getName));
     }
-
 }
