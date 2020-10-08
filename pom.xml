@@ -10,7 +10,7 @@
     </parent>
     <groupId>io.ambulante</groupId>
     <artifactId>ambulante-backend</artifactId>
-    <version>0.0.9</version>
+    <version>0.0.10-SNAPSHOT</version>
     <name>Ambulante backend</name>
     <description>Backend API for l'Ambulante</description>
     <scm>
