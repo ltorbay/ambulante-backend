@@ -15,6 +15,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -24,7 +25,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.validation.Valid;
 import java.util.Optional;
 
 @RestController
@@ -51,7 +51,7 @@ public class ProducerController {
     @PutMapping("/{producerId}/coordinates")
     @Transactional
     public Coordinates updateCoordinates(final @PathVariable("producerId") Integer producerId,
-                                         final @RequestBody @Valid Coordinates coordinates) {
+                                         final @RequestBody @Validated Coordinates coordinates) {
         final var producer = this.producerRepository.findById(producerId).orElseThrow(NotFoundException::new);
         producer.setCoordinates(this.coordinatesMapper.map(coordinates));
         return this.coordinatesMapper.map(producer.getCoordinates());

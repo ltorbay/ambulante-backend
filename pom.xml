@@ -5,7 +5,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.2.5.RELEASE</version>
+        <version>2.6.3</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>io.ambulante</groupId>
@@ -19,16 +19,16 @@
     </scm>
 
     <properties>
-        <java.version>11</java.version>
-        <maven.compiler.source>11</maven.compiler.source>
-        <maven.compiler.target>11</maven.compiler.target>
+        <java.version>17</java.version>
+        <maven.compiler.source>17</maven.compiler.source>
+        <maven.compiler.target>17</maven.compiler.target>
 
-        <projectlombok.version>1.18.12</projectlombok.version>
-        <projectlombok.maven.version>1.18.12.0</projectlombok.maven.version>
-        <google.flogger.version>0.5.1</google.flogger.version>
-        <mapstruct.version>1.3.1.Final</mapstruct.version>
+        <projectlombok.version>1.18.22</projectlombok.version>
+        <projectlombok.maven.version>1.18.20.0</projectlombok.maven.version>
+        <google.flogger.version>0.7.4</google.flogger.version>
+        <mapstruct.version>1.4.2.Final</mapstruct.version>
         <postgresql.version>42.2.11</postgresql.version>
-        <liquibase.version>3.8.6</liquibase.version>
+        <liquibase.version>4.7.1</liquibase.version>
         <org.postgis.version>1.3.3</org.postgis.version>
 
         <!-- plugins-->

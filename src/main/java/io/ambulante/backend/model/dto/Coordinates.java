@@ -6,8 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import javax.validation.constraints.NotNull;
+import lombok.NonNull;
 
 @Data
 @Builder
@@ -15,11 +14,11 @@ import javax.validation.constraints.NotNull;
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 public class Coordinates {
 
-    @NotNull
+    @NonNull
     @JsonProperty("latitude")
     private Double x;
-    
-    @NotNull
+
+    @NonNull
     @JsonProperty("longitude")
     private Double y;
 }

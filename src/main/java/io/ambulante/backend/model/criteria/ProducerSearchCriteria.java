@@ -1,15 +1,14 @@
 package io.ambulante.backend.model.criteria;
 
 import lombok.Data;
-
-import javax.validation.constraints.NotNull;
+import lombok.NonNull;
 
 @Data
 public class ProducerSearchCriteria {
-    @NotNull
+    @NonNull
     private Double latitude;
 
-    @NotNull
+    @NonNull
     private Double longitude;
 
     // Range in meters
